@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Users\PretYoon\source\repos\ANTLRTest\ANTLRTest\Calc.g4 by ANTLR 4.6.5
+// Generated from C:\Users\pret-\Desktop\fa\ANTLRTest\ANTLRTest\Calc.g4 by ANTLR 4.6.5
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -29,15 +29,13 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 [System.CLSCompliant(false)]
 public partial class CalcLexer : Lexer {
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, INT=7, ID=8, NEWLINE=9, 
-		WS=10;
+		T__0=1, T__1=2, ADD=3, SUB=4, MUL=5, DIV=6, INT=7, ID=8, NEWLINE=9, WS=10;
 	public static string[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
 	public static readonly string[] ruleNames = {
-		"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "INT", "ID", "NEWLINE", 
-		"WS"
+		"T__0", "T__1", "ADD", "SUB", "MUL", "DIV", "INT", "ID", "NEWLINE", "WS"
 	};
 
 
@@ -48,10 +46,11 @@ public partial class CalcLexer : Lexer {
 	}
 
 	private static readonly string[] _LiteralNames = {
-		null, "'+'", "'-'", "'*'", "'/'", "'('", "')'"
+		null, "'('", "')'", "'+'", "'-'", "'*'", "'/'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, "INT", "ID", "NEWLINE", "WS"
+		null, null, null, "ADD", "SUB", "MUL", "DIV", "INT", "ID", "NEWLINE", 
+		"WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -113,9 +112,9 @@ public partial class CalcLexer : Lexer {
 		"\x2\x2\x2\x13\x3\x2\x2\x2\x2\x15\x3\x2\x2\x2\x3\x17\x3\x2\x2\x2\x5\x19"+
 		"\x3\x2\x2\x2\a\x1B\x3\x2\x2\x2\t\x1D\x3\x2\x2\x2\v\x1F\x3\x2\x2\x2\r!"+
 		"\x3\x2\x2\x2\xF$\x3\x2\x2\x2\x11)\x3\x2\x2\x2\x13.\x3\x2\x2\x2\x15\x33"+
-		"\x3\x2\x2\x2\x17\x18\a-\x2\x2\x18\x4\x3\x2\x2\x2\x19\x1A\a/\x2\x2\x1A"+
-		"\x6\x3\x2\x2\x2\x1B\x1C\a,\x2\x2\x1C\b\x3\x2\x2\x2\x1D\x1E\a\x31\x2\x2"+
-		"\x1E\n\x3\x2\x2\x2\x1F \a*\x2\x2 \f\x3\x2\x2\x2!\"\a+\x2\x2\"\xE\x3\x2"+
+		"\x3\x2\x2\x2\x17\x18\a*\x2\x2\x18\x4\x3\x2\x2\x2\x19\x1A\a+\x2\x2\x1A"+
+		"\x6\x3\x2\x2\x2\x1B\x1C\a-\x2\x2\x1C\b\x3\x2\x2\x2\x1D\x1E\a/\x2\x2\x1E"+
+		"\n\x3\x2\x2\x2\x1F \a,\x2\x2 \f\x3\x2\x2\x2!\"\a\x31\x2\x2\"\xE\x3\x2"+
 		"\x2\x2#%\x4\x32;\x2$#\x3\x2\x2\x2%&\x3\x2\x2\x2&$\x3\x2\x2\x2&\'\x3\x2"+
 		"\x2\x2\'\x10\x3\x2\x2\x2(*\t\x2\x2\x2)(\x3\x2\x2\x2*+\x3\x2\x2\x2+)\x3"+
 		"\x2\x2\x2+,\x3\x2\x2\x2,\x12\x3\x2\x2\x2-/\a\xF\x2\x2.-\x3\x2\x2\x2./"+

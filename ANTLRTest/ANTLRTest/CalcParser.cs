@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Users\PretYoon\source\repos\ANTLRTest\ANTLRTest\Calc.g4 by ANTLR 4.6.5
+// Generated from C:\Users\pret-\Desktop\fa\ANTLRTest\ANTLRTest\Calc.g4 by ANTLR 4.6.5
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -31,8 +31,7 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 [System.CLSCompliant(false)]
 public partial class CalcParser : Parser {
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, INT=7, ID=8, NEWLINE=9, 
-		WS=10;
+		T__0=1, T__1=2, ADD=3, SUB=4, MUL=5, DIV=6, INT=7, ID=8, NEWLINE=9, WS=10;
 	public const int
 		RULE_prog = 0, RULE_stat = 1, RULE_expr = 2, RULE_term = 3, RULE_factor = 4;
 	public static readonly string[] ruleNames = {
@@ -40,10 +39,11 @@ public partial class CalcParser : Parser {
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'+'", "'-'", "'*'", "'/'", "'('", "')'"
+		null, "'('", "')'", "'+'", "'-'", "'*'", "'/'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, "INT", "ID", "NEWLINE", "WS"
+		null, null, null, "ADD", "SUB", "MUL", "DIV", "INT", "ID", "NEWLINE", 
+		"WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -198,6 +198,7 @@ public partial class CalcParser : Parser {
 		}
 	}
 	public partial class ADDSUBContext : ExprContext {
+		public IToken op;
 		public TermContext[] term() {
 			return GetRuleContexts<TermContext>();
 		}
@@ -233,13 +234,14 @@ public partial class CalcParser : Parser {
 			State = 19;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==T__0 || _la==T__1) {
+			while (_la==ADD || _la==SUB) {
 				{
 				{
 				State = 15;
+				((ADDSUBContext)_localctx).op = _input.Lt(1);
 				_la = _input.La(1);
-				if ( !(_la==T__0 || _la==T__1) ) {
-				_errHandler.RecoverInline(this);
+				if ( !(_la==ADD || _la==SUB) ) {
+					((ADDSUBContext)_localctx).op = _errHandler.RecoverInline(this);
 				} else {
 					if (_input.La(1) == TokenConstants.Eof) {
 						matchedEOF = true;
@@ -281,6 +283,7 @@ public partial class CalcParser : Parser {
 		}
 	}
 	public partial class MUTDIVContext : TermContext {
+		public IToken op;
 		public FactorContext[] factor() {
 			return GetRuleContexts<FactorContext>();
 		}
@@ -316,13 +319,14 @@ public partial class CalcParser : Parser {
 			State = 27;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==T__2 || _la==T__3) {
+			while (_la==MUL || _la==DIV) {
 				{
 				{
 				State = 23;
+				((MUTDIVContext)_localctx).op = _input.Lt(1);
 				_la = _input.La(1);
-				if ( !(_la==T__2 || _la==T__3) ) {
-				_errHandler.RecoverInline(this);
+				if ( !(_la==MUL || _la==DIV) ) {
+					((MUTDIVContext)_localctx).op = _errHandler.RecoverInline(this);
 				} else {
 					if (_input.La(1) == TokenConstants.Eof) {
 						matchedEOF = true;
@@ -425,13 +429,13 @@ public partial class CalcParser : Parser {
 			State = 36;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
-			case T__4:
+			case T__0:
 				_localctx = new PARContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 30; Match(T__4);
+				State = 30; Match(T__0);
 				State = 31; expr();
-				State = 32; Match(T__5);
+				State = 32; Match(T__1);
 				}
 				break;
 			case INT:
@@ -468,15 +472,15 @@ public partial class CalcParser : Parser {
 		"\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x3\x2\x3\x2\x3\x3\x3\x3\x3\x4"+
 		"\x3\x4\x3\x4\a\x4\x14\n\x4\f\x4\xE\x4\x17\v\x4\x3\x5\x3\x5\x3\x5\a\x5"+
 		"\x1C\n\x5\f\x5\xE\x5\x1F\v\x5\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x5\x6"+
-		"\'\n\x6\x3\x6\x2\x2\x2\a\x2\x2\x4\x2\x6\x2\b\x2\n\x2\x2\x4\x3\x2\x3\x4"+
-		"\x3\x2\x5\x6\'\x2\f\x3\x2\x2\x2\x4\xE\x3\x2\x2\x2\x6\x10\x3\x2\x2\x2\b"+
-		"\x18\x3\x2\x2\x2\n&\x3\x2\x2\x2\f\r\x5\x4\x3\x2\r\x3\x3\x2\x2\x2\xE\xF"+
-		"\x5\x6\x4\x2\xF\x5\x3\x2\x2\x2\x10\x15\x5\b\x5\x2\x11\x12\t\x2\x2\x2\x12"+
+		"\'\n\x6\x3\x6\x2\x2\x2\a\x2\x2\x4\x2\x6\x2\b\x2\n\x2\x2\x4\x3\x2\x5\x6"+
+		"\x3\x2\a\b\'\x2\f\x3\x2\x2\x2\x4\xE\x3\x2\x2\x2\x6\x10\x3\x2\x2\x2\b\x18"+
+		"\x3\x2\x2\x2\n&\x3\x2\x2\x2\f\r\x5\x4\x3\x2\r\x3\x3\x2\x2\x2\xE\xF\x5"+
+		"\x6\x4\x2\xF\x5\x3\x2\x2\x2\x10\x15\x5\b\x5\x2\x11\x12\t\x2\x2\x2\x12"+
 		"\x14\x5\b\x5\x2\x13\x11\x3\x2\x2\x2\x14\x17\x3\x2\x2\x2\x15\x13\x3\x2"+
 		"\x2\x2\x15\x16\x3\x2\x2\x2\x16\a\x3\x2\x2\x2\x17\x15\x3\x2\x2\x2\x18\x1D"+
 		"\x5\n\x6\x2\x19\x1A\t\x3\x2\x2\x1A\x1C\x5\n\x6\x2\x1B\x19\x3\x2\x2\x2"+
 		"\x1C\x1F\x3\x2\x2\x2\x1D\x1B\x3\x2\x2\x2\x1D\x1E\x3\x2\x2\x2\x1E\t\x3"+
-		"\x2\x2\x2\x1F\x1D\x3\x2\x2\x2 !\a\a\x2\x2!\"\x5\x6\x4\x2\"#\a\b\x2\x2"+
+		"\x2\x2\x2\x1F\x1D\x3\x2\x2\x2 !\a\x3\x2\x2!\"\x5\x6\x4\x2\"#\a\x4\x2\x2"+
 		"#\'\x3\x2\x2\x2$\'\a\t\x2\x2%\'\a\n\x2\x2& \x3\x2\x2\x2&$\x3\x2\x2\x2"+
 		"&%\x3\x2\x2\x2\'\v\x3\x2\x2\x2\x5\x15\x1D&";
 	public static readonly ATN _ATN =

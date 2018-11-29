@@ -6,15 +6,22 @@ grammar Calc;
 
  prog: stat
 	   ;
- stat: expr
+ stat: expr													#EXPR
+	   | ID (op='=>') expr									#ASSIGN
+	   | ID (op='=>') '(' ( ID (',' ID)* )? ')' '->' expr	#FUNC
 	   ;
- expr: term (op=('+' | '-') term)*        #ADDSUB
+ expr: term '+' expr										#ADD
+	   | term '-' expr										#SUB
+	   | term												#SINGLE_TERM
 	   ;
- term: factor (op=('*' | '/') factor)*    #MUTDIV
+ term: factor '*' term										#MULT
+	   | factor '/' term									#DIVI
+	   | factor												#SINGLE_FACTOR
 	   ;
- factor: '(' expr ')'                  #PAR
-		 | INT                         #NUMBER
-		 | ID                          #VAR
+ factor: '(' expr ')'										#PAR
+		 | INT												#NUMBER
+		 | ID												#VAR
+		 | ID '(' ( expr (',' expr)* )? ')'					#FUNC_CALL
 		 ;
 
 /*
@@ -27,6 +34,8 @@ SUB: '-'
 MUL: '*'
 	 ;
 DIV: '/'
+	 ;
+ASN: '=>'
 	 ;
 INT : ('0'..'9')+
 	  ;
