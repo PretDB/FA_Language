@@ -4,7 +4,7 @@ grammar FA_Language;
  * Parser Rules
  */
 conversation
-	: sentence															#SENTENCE
+	: sentence
 	;
 
 sentence
@@ -17,42 +17,46 @@ statement
 	;
 
 order
-	:	func_call														#FUNC_CALL
-	|	var_call														#VAR_CALL
+	:	call
 	;
 
-func_call
-	:	WORD '(' (sentence)* ')'
-	;
-
-var_call
-	:	WORD															#SHOW_VAR
+call
+	:	WORD ('(' (sentence (',' sentence)*)? ')')?						#WORDCALL
+	|	body															#BODYCALL
 	;
 
 declaration
-	:	WORD '=>' func_body												#FUNC_DECLARATION
-	|	WORD '=>' list_body												#LIST_DECLARATION
-	|	WORD '=>' tuple_body											#TUPLE_DECLARATION		
-	|	WORD '=>' num_body												#NUM_DECLARATION
+	:	WORD ASN func_body												#FUNC_DECLARATION
+	|	WORD ASN list_body												#LIST_DECLARATION
+	|	WORD ASN tuple_body											#TUPLE_DECLARATION		
+	|	WORD ASN num_body												#NUM_DECLARATION
+	;
+
+body
+	:	func_body
+	|	list_body
+	|	tuple_body
+	|	num_body
 	;
 
 func_body
-	:	'(' (sentence)* ')' '->' sentence
+	:	'(' (TYPE WORD (',' TYPE WORD)*)? ')' '->' sentence
 	;
 
 list_body
-	:	'[' (sentence)* ']'	
+	:	'[' (sentence (',' sentence)*)? ']'	
 	;
 
 tuple_body
-	:	'('	sentence ',' (',' sentence)+ ')'
+	:	'('	sentence  (',' sentence)+ ')'
 	;
 
 
 num_body
-	:	INT																#INT_BODY
-	|	REAL															#REAL_BODY
-	|	IMAG															#IMAG_BODY
+	:	INT
+	|	REAL
+	|	IMAG
+	|	TYPE
 	;
 
 compileUnit
@@ -63,36 +67,64 @@ compileUnit
  * Lexer Rules
  */
 
-WS
-	:	' ' -> channel(HIDDEN)
+fragment BLK
+	:	' '
 	;
 
-NUTRAL
+WS
+	:	( BLK | '\t' | '\r' | '\n')+ -> channel(HIDDEN)
+	;
+
+fragment NUTRAL
 	:	('0'..'9')+
 	;
 
-INT
-	:	('-')? NUTRAL
+fragment INTEGER
+	:	('-')? NUTRAL+
 	;
 
-FRAC
-	:	(INT) '.' (NUTRAL)
+fragment FRAC
+	:	INTEGER '.' NUTRAL
+	;
+
+fragment FLOAT
+	:	FRAC
+	|	INTEGER
+	|	(FRAC | INTEGER) 'e' (FRAC | INTEGER)
+	|	(FRAC | INTEGER) 'E' (FRAC | INTEGER)
+	;
+
+fragment NON_NUM
+	:	('a'..'z' | 'A'..'Z' | '~' | '`' | '!' | '@' | '#' | '$' | '%' | '^' | '&' | '*' | '_' | '+' | '-' | '/' | '\\' | '|' | '>' | '<' | '?' | ':' )
+	;
+
+TYPE
+	:	'Int'
+	|	'Real'
+	|	'Imag'
+	|	'List'
+	|	'Tuple'
+	;
+
+ASN
+	:	'=>'
+	;
+
+INT
+	:	INTEGER
 	;
 
 REAL
-	:	FRAC
-	|	FRAC 'e' FRAC
-	|	FRAC 'E' FRAC
+	:	FLOAT
 	;
 
 IMAG
-	:	REAL 'i' REAL
+	:	FLOAT 'i' FLOAT
 	;
 
 WORD
 	:	NON_NUM (NON_NUM | ('0'..'9'))*
-	;
-
-NON_NUM
-	:	('a'..'z' | 'A'..'Z' | '~' | '`' | '!' | '@' | '#' | '$' | '%' | '^' | '&' | '*' | '_' | '+' | '/' | '\\' | '|' | '>' | '<' | '?' | ':' )
+	|	INT
+	|	FLOAT
+	|	IMAG
 	;
